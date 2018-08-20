@@ -666,20 +666,21 @@ p {
 }
 
 .hover-content {
-  display: none;
-  overflow: hidden;
-}
-
-.team-member:hover .hover-content {
-  display: block;
   position: absolute;
   top: 0;
   left: 10px;
   right: 10px;
   bottom: 90px;
+  opacity: 0;
+  overflow: hidden;
+  transition: opacity .25s linear;
+  padding: 10px;
+}
+
+.team-member:hover .hover-content {
+  opacity: 1;
   background: rgba(0,0,0,0.6);
   color: #d1d1d1;
-  padding: 10px;
 }
 
 

@@ -1,0 +1,66 @@
+service: persisto-labs-sls
+
+# Use the serverless-webpack plugin to transpile ES6
+plugins:
+  - serverless-webpack
+# serverless-webpack configuration
+# Enable auto-packing of external modules
+custom:
+  webpack:
+    webpackConfig: ./webpack.config.js
+    includeModules: true
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: prod
+  region: us-east-1
+  profile: persisto
+
+
+  iamRoleStatements:
+    - Effect: Allow
+      Action:
+        - dynamodb:DescribeTable
+        - dynamodb:Query
+        - dynamodb:Scan
+        - dynamodb:GetItem
+        - dynamodb:PutItem
+        - dynamodb:UpdateItem
+        - dynamodb:DeleteItem
+      Resource: "arn:aws:dynamodb:us-east-1:*:*"
+    - Effect: Allow
+      Action:
+        - s3:GetObject
+        - s3:PutObject
+        - s3:ListObjects
+      Resource: "*"
+    # - Effect: Allow
+    #   Action:
+    #     - ssm:GetParameters
+    #   Resource: "*"
+
+functions:
+  example:
+    handler: example.hello
+    environment:
+      POSTMARK_KEY: "5e911f98-eff4-4033-a42c-2dbc03d4e6e0"
+    events:
+      - http:
+          path: messages
+          method: get
+  post:
+    handler: handler.post
+    environment:
+      POSTMARK_KEY: "5e911f98-eff4-4033-a42c-2dbc03d4e6e0"
+      EMAIL_BUCKET: "persisto-labs-leads"
+    events:
+      - http:
+          path: signup
+          method: post
+          cors: true
+          queryParameters:
+            email: $input.body('email')
+            name: $input.body('name')
+            budget: $input.body('budget')
+            description: $input.body('description')

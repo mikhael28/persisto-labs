@@ -44,7 +44,12 @@
         </div>
         <div id="contact-form" class="contact-form-column w-col w-col-8">
           <div class="w-form">
-            <form name="email-form" data-name="Email Form"><input type="text" name="name" data-name="Name" placeholder="Name" maxlength="256" required="" class="field w-input"><input type="email" name="email" data-name="Email" placeholder="Email" maxlength="256" required="" class="field w-input"><input type="email" name="budget" data-name="Budget" placeholder="Budget" maxlength="256" required="" class="field w-input"><textarea placeholder="Project Description" maxlength="5000" name="description" data-name="description" required="" class="field w-input"></textarea><input type="submit" value="Send email" data-wait="Please wait..." class="button form w-button">
+            <form action="https://uiglanmdub.execute-api.us-east-1.amazonaws.com/prod/signup" method="POST" >
+              <input type="text" name="name" data-name="Name" placeholder="Name" maxlength="256" required="" class="field w-input">
+              <input type="email" name="email" data-name="Email" placeholder="Email" maxlength="256" required="" class="field w-input">
+              <input type="text" name="budget" data-name="Budget" placeholder="Budget" maxlength="256" required="" class="field w-input">
+              <textarea placeholder="Project Description" maxlength="5000" name="description" data-name="description" required="" class="field w-input"></textarea>
+              <input type="submit" value="Send email" data-wait="Please wait..." class="button form w-button">
               <div>We&#x27;ll get back to you within 48 hours. </div>
             </form>
             <div class="success w-clearfix w-form-done">
